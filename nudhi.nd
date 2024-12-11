@@ -1,0 +1,4 @@
+nudhi_ask "thingy: " thingy
+nudhi_ask "pinky: " pinky
+result = thingy + pinky
+nudhi_say result
