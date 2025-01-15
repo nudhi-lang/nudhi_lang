@@ -6,7 +6,8 @@ use std::fs;
 use std::process::exit;
 use std::process::Command;
 use std::io;
-
+use winreg::enums::*;
+use winreg::RegKey;
 
 // Structure to store variables (as strings or integers)
 enum Value {
@@ -186,7 +187,24 @@ fn interpret(source_code: &str, variables: &mut HashMap<String, Value>) {
     }
 }
 
+fn register_file_association() {
+    let hkcu = RegKey::predef(HKEY_CURRENT_USER);
+    let (nudhi_key, _) = hkcu.create_subkey("Software\\Classes\\.nd").unwrap();
+    nudhi_key.set_value("", &"nudhi_lang_file").unwrap();
+
+    let (nudhi_file_key, _) = hkcu.create_subkey("Software\\Classes\\nudhi_lang_file").unwrap();
+    nudhi_file_key.set_value("", &"Nudhi Lang File").unwrap();
+    nudhi_file_key.set_value("FriendlyTypeName", &"Nudhi Lang File").unwrap();
+
+    let (shell_key, _) = nudhi_file_key.create_subkey("shell\\open\\command").unwrap();
+    let exe_path = std::env::current_exe().unwrap();
+    let exe_path_str = exe_path.to_str().unwrap();
+    shell_key.set_value("", &format!("\"{}\" \"%1\"", exe_path_str)).unwrap();
+}
+
 fn main() {
+    register_file_association();
+
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
         eprintln!("Usage: {} <source_file>", args[0]);
