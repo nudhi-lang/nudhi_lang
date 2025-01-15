@@ -7,6 +7,7 @@ use std::process::exit;
 use std::process::Command;
 use std::io;
 use winreg::enums::*;
+use winreg::enums::HKEY_CURRENT_USER;
 use winreg::RegKey;
 
 // Structure to store variables (as strings or integers)
