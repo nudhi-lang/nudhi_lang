@@ -1,6 +1,7 @@
 #![allow(warnings)]
 
 mod math;
+mod files;
 
 use crate::math::evaluate_math;
 use std::collections::HashMap;
@@ -155,7 +156,12 @@ fn interpret(source_code: &str, variables: &mut HashMap<String, Value>) {
             nudhi_ask(trimmed_line, variables);
         } else if trimmed_line.starts_with("nudhi_die") {
             nudhi_die();
-        } else if trimmed_line.contains('=') || trimmed_line.contains('+') || trimmed_line.contains('-') || trimmed_line.contains('*') || trimmed_line.contains('/') {
+        } else if trimmed_line.starts_with("nudhi_read") {
+            files::nudhi_read(trimmed_line, variables);
+        } else if trimmed_line.starts_with("nudhi_write") {
+            files::nudhi_write(trimmed_line, variables);
+        }
+         else if trimmed_line.contains('=') || trimmed_line.contains('+') || trimmed_line.contains('-') || trimmed_line.contains('*') || trimmed_line.contains('/') {
             // Handle variable assignment or math expressions
             nudhi_set(trimmed_line, variables);
         } else {
@@ -180,7 +186,7 @@ fn register_file_association() {
 }
 
 fn main() {
-    register_file_association();
+    register_file_association(); // TO-DO - remove this funtion completely and instead to this in the installer as this is NOT optimal at all
 
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
