@@ -1,4 +1,4 @@
-// funtinalty to read and write files
+// functionality to read and write files
 use std::fs::{self, OpenOptions};
 use std::io::Write;
 use std::collections::HashMap;
