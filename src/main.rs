@@ -186,8 +186,7 @@ fn register_file_association() {
 }
 
 fn main() {
-    register_file_association(); // TO-DO - remove this funtion completely and instead to this in the installer as this is NOT optimal at all
-
+    register_file_association(); // TO-DO - remove this function completely and do this in the installer instead, as this is NOT optimal at all
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
         eprintln!("Usage: {} <source_file>", args[0]);
