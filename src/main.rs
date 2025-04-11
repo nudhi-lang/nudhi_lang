@@ -165,7 +165,7 @@ fn interpret(source_code: &str, variables: &mut HashMap<String, Value>) {
             // Handle variable assignment or math expressions
             nudhi_set(trimmed_line, variables);
         } else {
-            eprintln!("nudhi does not know that function: {}", line);
+            eprintln!("nudhi does not know that: {}", line);
         }
     }
 }
