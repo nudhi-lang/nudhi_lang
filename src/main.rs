@@ -171,7 +171,6 @@ fn interpret(source_code: &str, variables: &mut HashMap<String, Value>) {
 }
 
 fn main() {
-    register_file_association(); 
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
         eprintln!("Usage: {} <source_file>", args[0]);
