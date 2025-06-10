@@ -4,14 +4,26 @@ use crate::Value;
 // nudhi_change_case: change the case of a string variable
 pub fn nudhi_change_case(trimmed_line: &str, variables: &mut HashMap<String, Value>) {
     let parts: Vec<&str> = trimmed_line.split_whitespace().collect();
+
+    // If the line has three parts then change the case of the variable
+    // Example: nudhi_change_case var_name upper
     if parts.len() != 3 || parts[0] != "nudhi_change_case" {
         eprintln!("Error: Invalid syntax for nudhi_change_case");
         return;
     }
 
-    let var_name = parts[1];
-    let case_type = parts[2];
+    if parts.len() == 3 {
+        change_variable_case(parts[1], parts[2], variables);
+        return;
+    }
+}
 
+
+fn change_variable_case(
+    var_name: &str,
+    case_type: &str,
+    variables: &mut HashMap<String, Value>,
+) {
     if let Some(value) = variables.get(var_name) {
         match value {
             Value::Str(val) => {
