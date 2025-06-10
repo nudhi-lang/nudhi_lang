@@ -1,7 +1,8 @@
 #![allow(warnings)]
 
-mod math;
 mod files;
+mod math;
+mod strings;
 
 use crate::math::evaluate_math;
 use std::collections::HashMap;
@@ -148,16 +149,18 @@ fn interpret(source_code: &str, variables: &mut HashMap<String, Value>) {
         }
 
         // Handle nudhi commands
-        if trimmed_line.starts_with("nudhi_say") {
-            nudhi_say(trimmed_line, variables);
+        if trimmed_line.starts_with("nudhi_ask") {
+            nudhi_ask(trimmed_line, variables);
+        } else if trimmed_line.starts_with("nudhi_change_case") {
+            strings::nudhi_change_case(trimmed_line, variables);
         } else if trimmed_line.starts_with("nudhi_do") {
             nudhi_do(trimmed_line);
-        } else if trimmed_line.starts_with("nudhi_ask") {
-            nudhi_ask(trimmed_line, variables);
         } else if trimmed_line.starts_with("nudhi_die") {
             nudhi_die();
         } else if trimmed_line.starts_with("nudhi_read") {
             files::nudhi_read(trimmed_line, variables);
+        } else if trimmed_line.starts_with("nudhi_say") {
+            nudhi_say(trimmed_line, variables);
         } else if trimmed_line.starts_with("nudhi_write") {
             files::nudhi_write(trimmed_line, variables);
         }
